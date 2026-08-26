@@ -1,0 +1,13 @@
+{
+  "name": "Ma. Eugenia Blanco — Historia Clínica Odontológica",
+  "short_name": "Clínica EB",
+  "description": "Historia clínica odontológica digital",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FAF7F1",
+  "theme_color": "#4A5A43",
+  "orientation": "any",
+  "icons": [
+    { "src": "logo.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
