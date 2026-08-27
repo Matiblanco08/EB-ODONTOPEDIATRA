@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Ma. Eugenia Blanco — Historia Clínica Odontológica</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4A5A43">
+<link rel="apple-touch-icon" href="logo.png">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<style>
+:root{
+  --sage:#7C9473;
+  --sage-dark:#4A5A43;
+  --sage-pale:#E7ECE2;
+  --terracotta:#E0935E;
+  --terracotta-dark:#C97A45;
+  --tan:#C99B6B;
+  --cream:#FAF7F1;
+  --white:#FFFFFF;
+  --ink:#2E332B;
+  --ink-soft:#6B7266;
+  --line:#E3DFD5;
+  --red:#D65A4A;
+  --amber:#E0A63E;
+  --blue:#5B8DBE;
+  --gray-dark:#4A4A4A;
+  --radius:14px;
+  --shadow:0 2px 10px rgba(46,51,43,0.07);
+  --shadow-lg:0 12px 32px rgba(46,51,43,0.16);
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;height:100%;}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior:none;
+}
+h1,h2,h3,.display{font-family:'Quicksand',sans-serif; font-weight:700; color:var(--sage-dark);}
+button{font-family:inherit;}
+#app{min-height:100vh; display:flex; flex-direction:column;}
+::-webkit-scrollbar{width:8px;height:8px;}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px;}
+
+/* ---------- LOGIN ---------- */
+.login-screen{
+  flex:1; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(160deg,var(--sage-pale) 0%, var(--cream) 55%);
+  padding:24px;
+}
+.login-card{
+  background:var(--white); border-radius:24px; box-shadow:var(--shadow-lg);
+  padding:40px 32px; width:100%; max-width:380px; text-align:center;
+}
+.login-card img{width:96px; height:96px; border-radius:50%; margin-bottom:12px; box-shadow:var(--shadow);}
+.login-card h1{font-size:22px; margin:4px 0 2px;}
+.login-card p.sub{color:var(--ink-soft); font-size:14px; margin:0 0 24px;}
+.field{text-align:left; margin-bottom:16px;}
+.field label{display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px; text-transform:uppercase; letter-spacing:.03em;}
+.field input,.field select,.field textarea{
+  width:100%; padding:13px 14px; border-radius:10px; border:1.5px solid var(--line);
+  font-size:16px; font-family:inherit; background:var(--white); color:var(--ink);
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none; border-color:var(--sage);}
+.field textarea{resize:vertical; min-height:70px;}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:13px 20px; border-radius:10px; border:none; cursor:pointer;
+  font-weight:600; font-size:15px; transition:transform .08s ease, opacity .15s ease;
+}
+.btn:active{transform:scale(0.97);}
+.btn-primary{background:var(--sage-dark); color:var(--white); width:100%;}
+.btn-primary:hover{background:var(--sage);}
+.btn-accent{background:var(--terracotta); color:var(--white);}
+.btn-accent:hover{background:var(--terracotta-dark);}
+.btn-ghost{background:transparent; color:var(--sage-dark); border:1.5px solid var(--line);}
+.btn-ghost:hover{border-color:var(--sage);}
+.btn-danger{background:var(--red); color:var(--white);}
+.btn-sm{padding:8px 14px; font-size:13px; border-radius:8px;}
+.login-error{color:var(--red); font-size:13px; margin:-8px 0 16px; min-height:16px;}
+
+/* ---------- HEADER ---------- */
+.topbar{
+  background:var(--sage-dark); color:var(--white); padding:10px 20px;
+  display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:50;
+  box-shadow:0 2px 8px rgba(0,0,0,0.12);
+}
+.topbar img.logo{width:38px; height:38px; border-radius:50%; background:var(--white);}
+.topbar .brand{font-family:'Quicksand'; font-weight:700; font-size:16px; line-height:1.15;}
+.topbar .brand small{display:block; font-weight:500; font-size:11px; opacity:.8;}
+.topbar .spacer{flex:1;}
+.topbar-search{
+  display:flex; align-items:center; background:rgba(255,255,255,0.14); border-radius:10px;
+  padding:8px 12px; gap:8px; max-width:340px; flex:1;
+}
+.topbar-search input{
+  background:transparent; border:none; outline:none; color:var(--white); font-size:14px; width:100%;
+}
+.topbar-search input::placeholder{color:rgba(255,255,255,0.65);}
+.icon-btn{
+  background:transparent; border:none; color:var(--white); cursor:pointer; padding:8px;
+  border-radius:8px; display:flex; align-items:center; opacity:.9;
+}
+.icon-btn:hover{background:rgba(255,255,255,0.14); opacity:1;}
+.search-toggle-btn{display:none;}
+.queue-badge{
+  display:none; align-items:center; gap:4px; background:var(--terracotta); color:var(--white);
+  font-size:11.5px; font-weight:700; padding:6px 10px; border-radius:20px; cursor:pointer; white-space:nowrap;
+}
+
+/* ---------- LAYOUT ---------- */
+main{flex:1; padding:20px; max-width:1180px; margin:0 auto; width:100%;}
+.view{display:none;}
+.view.active{display:block;}
+
+/* ---------- DASHBOARD ---------- */
+.dash-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:22px;}
+.stat-card{background:var(--white); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow);}
+.stat-card .num{font-family:'Quicksand'; font-size:28px; font-weight:700; color:var(--sage-dark);}
+.stat-card .lbl{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+.action-row{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:22px;}
+.action-card{
+  background:var(--white); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow);
+  display:flex; align-items:center; gap:16px; cursor:pointer; border:1.5px solid transparent;
+  transition:border-color .15s;
+}
+.action-card:hover{border-color:var(--sage);}
+.action-card .ico{
+  width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+  font-size:22px; flex-shrink:0;
+}
+.action-card.primary .ico{background:var(--sage-pale); color:var(--sage-dark);}
+.action-card.accent .ico{background:#FBE7D6; color:var(--terracotta-dark);}
+.action-card h3{margin:0 0 2px; font-size:16px;}
+.action-card p{margin:0; font-size:13px; color:var(--ink-soft);}
+.panel{background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px; margin-bottom:18px;}
+.panel h2{font-size:16px; margin:0 0 14px; display:flex; align-items:center; justify-content:space-between;}
+.two-col{display:grid; grid-template-columns:1.4fr 1fr; gap:18px;}
+
+.patient-row{
+  display:flex; align-items:center; gap:12px; padding:12px 8px; border-radius:10px; cursor:pointer;
+  border-bottom:1px solid var(--line);
+}
+.patient-row:last-child{border-bottom:none;}
+.patient-row:hover{background:var(--sage-pale);}
+.avatar{
+  width:40px; height:40px; border-radius:50%; background:var(--sage-pale); color:var(--sage-dark);
+  display:flex; align-items:center; justify-content:center; font-weight:700; font-family:'Quicksand'; flex-shrink:0;
+}
+.patient-row .info{flex:1; min-width:0;}
+.patient-row .info .name{font-weight:600; font-size:14.5px;}
+.patient-row .info .meta{font-size:12.5px; color:var(--ink-soft);}
+.chip{
+  display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:20px;
+  font-size:11.5px; font-weight:600;
+}
+.chip-red{background:#FBE4E1; color:#B84334;}
+.chip-amber{background:#FBF0DA; color:#96700F;}
+.chip-green{background:var(--sage-pale); color:var(--sage-dark);}
+.chip-blue{background:#E4EEF6; color:#356089;}
+.chip-gray{background:#EDEDED; color:#555;}
+.empty-note{color:var(--ink-soft); font-size:13.5px; text-align:center; padding:24px 8px;}
+
+/* ---------- SEARCH RESULTS DROPDOWN ---------- */
+.search-dropdown{
+  position:absolute; top:52px; left:0; right:0; background:var(--white); border-radius:12px;
+  box-shadow:var(--shadow-lg); max-height:340px; overflow-y:auto; z-index:80; display:none;
+}
+.search-wrap{position:relative;}
+
+/* ---------- PATIENT VIEW ---------- */
+.patient-header{
+  background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px;
+  display:flex; gap:18px; align-items:flex-start; margin-bottom:16px; flex-wrap:wrap;
+}
+.patient-header .avatar-lg{
+  width:64px; height:64px; font-size:22px; border-radius:50%; background:var(--sage-pale); color:var(--sage-dark);
+  display:flex; align-items:center; justify-content:center; font-weight:700; font-family:'Quicksand'; flex-shrink:0;
+}
+.patient-header .ph-info{flex:1; min-width:220px;}
+.patient-header h1{font-size:21px; margin:0 0 4px;}
+.patient-header .ph-meta{font-size:13px; color:var(--ink-soft); display:flex; gap:14px; flex-wrap:wrap;}
+.patient-header .alerts{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+.tabs{display:flex; gap:4px; background:var(--white); border-radius:12px; padding:5px; box-shadow:var(--shadow); margin-bottom:16px; overflow-x:auto;}
+.tab-btn{
+  padding:10px 16px; border-radius:9px; border:none; background:transparent; color:var(--ink-soft);
+  font-weight:600; font-size:13.5px; cursor:pointer; white-space:nowrap;
+}
+.tab-btn.active{background:var(--sage-dark); color:var(--white);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* ---------- FORMS ---------- */
+.form-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px 16px;}
+.form-grid.g3{grid-template-columns:repeat(3,1fr);}
+.form-grid .full{grid-column:1/-1;}
+.check-row{display:flex; align-items:center; gap:8px; padding:10px 0; border-bottom:1px solid var(--line);}
+.check-row:last-child{border-bottom:none;}
+.check-row label{font-weight:600; font-size:13.5px; flex:1;}
+.seg{display:flex; border-radius:8px; overflow:hidden; border:1.5px solid var(--line);}
+.seg button{border:none; background:var(--white); padding:6px 14px; font-size:12.5px; font-weight:600; cursor:pointer; color:var(--ink-soft);}
+.seg button.active{background:var(--sage); color:var(--white);}
+.detail-field{margin-top:8px;}
+
+/* ---------- ODONTOGRAM ---------- */
+.odonto-wrap{background:var(--white); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px 12px;}
+.arch{display:flex; justify-content:center; gap:6px; margin-bottom:8px; flex-wrap:nowrap; overflow-x:auto; padding:6px 0;}
+.arch-label{text-align:center; font-size:11px; color:var(--ink-soft); font-weight:700; letter-spacing:.06em; text-transform:uppercase; margin:10px 0 4px;}
+.tooth{
+  display:flex; flex-direction:column; align-items:center; cursor:pointer; flex-shrink:0; width:40px;
+}
+.tooth .num{font-size:10px; color:var(--ink-soft); font-weight:700; margin-bottom:3px;}
+.tooth svg{width:30px; height:38px; transition:transform .1s;}
+.tooth:hover svg{transform:scale(1.12);}
+.divider-v{width:1.5px; background:var(--line); margin:0 6px; align-self:stretch;}
+.legend{display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:18px; font-size:11.5px; color:var(--ink-soft);}
+.legend span{display:inline-flex; align-items:center; gap:5px;}
+.legend .dot{width:10px; height:10px; border-radius:50%; display:inline-block;}
+.side-labels{display:flex; justify-content:space-between; max-width:600px; margin:0 auto 6px; padding:0 24px; font-size:12px; font-weight:700; color:var(--sage-dark); letter-spacing:.06em;}
+.legend-box{margin-top:20px; border-top:1px solid var(--line); padding-top:14px;}
+.legend-title{display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:12.5px; font-weight:600; color:var(--ink); margin-bottom:12px;}
+.legend-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:9px 14px;}
+.legend-grid .li{display:flex; align-items:center; gap:9px; font-size:12.5px; color:var(--ink-soft);}
+.legend-sym{
+  width:24px; height:24px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:11px; border:1.3px solid var(--ink-soft); border-radius:4px; background:var(--white); color:var(--ink);
+}
+
+/* ---------- DRAWER ---------- */
+.overlay{position:fixed; inset:0; background:rgba(46,51,43,0.35); z-index:100; display:none;}
+.overlay.active{display:block;}
+.drawer{
+  position:fixed; top:0; right:0; height:100%; width:420px; max-width:94vw; background:var(--cream);
+  z-index:101; transform:translateX(100%); transition:transform .22s ease; box-shadow:-8px 0 24px rgba(0,0,0,0.18);
+  display:flex; flex-direction:column;
+}
+.drawer.active{transform:translateX(0);}
+.drawer-head{
+  background:var(--sage-dark); color:var(--white); padding:18px 20px; display:flex; align-items:center; justify-content:space-between;
+}
+.drawer-head h2{color:var(--white); margin:0; font-size:18px;}
+.drawer-body{flex:1; overflow-y:auto; padding:18px 20px;}
+.drawer-close{background:rgba(255,255,255,0.15); border:none; color:var(--white); width:32px; height:32px; border-radius:8px; cursor:pointer; font-size:16px;}
+
+.modal-overlay{position:fixed; inset:0; background:rgba(46,51,43,0.4); z-index:110; display:none; align-items:center; justify-content:center; padding:16px;}
+.modal-overlay.active{display:flex;}
+.modal{background:var(--white); border-radius:18px; max-width:640px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-lg);}
+.modal-head{padding:20px 24px 0; display:flex; justify-content:space-between; align-items:flex-start;}
+.modal-head h2{margin:0; font-size:19px;}
+.modal-body{padding:16px 24px 24px;}
+.modal-close{background:var(--sage-pale); border:none; width:30px; height:30px; border-radius:8px; cursor:pointer; color:var(--sage-dark); font-size:15px;}
+
+.state-picker{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:16px;}
+.state-opt{
+  border:2px solid var(--line); border-radius:10px; padding:10px 6px; text-align:center; cursor:pointer; background:var(--white);
+}
+.state-opt.active{border-color:var(--sage-dark); background:var(--sage-pale);}
+.state-opt .dot{width:16px; height:16px; border-radius:50%; margin:0 auto 5px;}
+.state-opt span{font-size:11px; font-weight:600; color:var(--ink);}
+
+.surface-diagram{display:flex; justify-content:center; margin:10px 0 16px;}
+.surface-diagram svg{width:130px; height:130px; cursor:pointer;}
+.surface-diagram .seg-face{fill:#F1EEE6; stroke:var(--ink-soft); stroke-width:1.5; transition:fill .12s;}
+.surface-diagram .seg-face.on{fill:var(--terracotta);}
+.surface-diagram text{font-size:9px; fill:var(--ink-soft); pointer-events:none; font-weight:700;}
+
+.timeline{position:relative; padding-left:20px;}
+.timeline::before{content:''; position:absolute; left:5px; top:6px; bottom:6px; width:2px; background:var(--line);}
+.tl-item{position:relative; padding-bottom:18px;}
+.tl-item::before{content:''; position:absolute; left:-20px; top:4px; width:10px; height:10px; border-radius:50%; background:var(--sage);}
+.tl-date{font-size:12px; font-weight:700; color:var(--sage-dark);}
+.tl-card{background:var(--white); border-radius:10px; padding:12px 14px; margin-top:6px; box-shadow:var(--shadow); font-size:13.5px;}
+.tl-card .tl-title{font-weight:700; margin-bottom:3px;}
+.tl-card .tl-meta{color:var(--ink-soft); font-size:12px;}
+
+.plan-row{display:flex; align-items:center; gap:10px; padding:11px 0; border-bottom:1px solid var(--line);}
+.plan-row:last-child{border-bottom:none;}
+.plan-row .pieza-badge{
+  width:34px; height:34px; border-radius:9px; background:var(--sage-pale); color:var(--sage-dark);
+  display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12.5px; flex-shrink:0;
+}
+.plan-row .p-info{flex:1;}
+.plan-row .p-info .p-proc{font-weight:600; font-size:14px;}
+.status-select{border-radius:20px; padding:6px 12px; font-size:12px; font-weight:700; border:none; cursor:pointer;}
+
+.tag-input-wrap{display:flex; flex-wrap:wrap; gap:6px; border:1.5px solid var(--line); border-radius:10px; padding:8px; min-height:44px;}
+.tag-pill{background:var(--sage-pale); color:var(--sage-dark); padding:5px 10px; border-radius:16px; font-size:12.5px; font-weight:600; display:flex; align-items:center; gap:6px;}
+.tag-pill button{background:none; border:none; cursor:pointer; color:var(--sage-dark); font-size:12px; padding:0;}
+.tag-input-wrap input{border:none; outline:none; flex:1; min-width:80px; font-size:14px; font-family:inherit;}
+
+.toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--sage-dark); color:var(--white);
+  padding:13px 22px; border-radius:12px; font-size:14px; font-weight:600; box-shadow:var(--shadow-lg); z-index:200; opacity:0; transition:all .25s; pointer-events:none;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+.fab{
+  position:fixed; bottom:24px; right:24px; width:58px; height:58px; border-radius:50%; background:var(--terracotta);
+  color:var(--white); border:none; font-size:26px; cursor:pointer; box-shadow:var(--shadow-lg); z-index:40;
+  display:flex; align-items:center; justify-content:center;
+}
+.fab:hover{background:var(--terracotta-dark);}
+
+.section-title{font-size:13px; font-weight:700; color:var(--sage-dark); text-transform:uppercase; letter-spacing:.04em; margin:18px 0 8px;}
+.section-title:first-child{margin-top:0;}
+.hint{font-size:12px; color:var(--ink-soft); margin-top:4px;}
+
+@media (max-width: 880px){
+  .dash-grid{grid-template-columns:repeat(2,1fr);}
+  .action-row{grid-template-columns:1fr;}
+  .two-col{grid-template-columns:1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .form-grid.g3{grid-template-columns:1fr 1fr;}
+  .search-toggle-btn{display:inline-flex !important;}
+  #searchWrap{
+    display:none; position:absolute; top:56px; left:0; right:0; max-width:100%;
+    background:var(--sage-dark); padding:12px 16px; z-index:90; box-shadow:0 6px 16px rgba(0,0,0,0.18);
+  }
+  #searchWrap.mobile-open{display:block;}
+  .drawer{width:100%; max-width:100%;}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   DATA LAYER — localStorage (listo para migrar a Google Sheets
+   / Apps Script más adelante, siguiendo el mismo patrón que
+   BC Salud y GG Taller — ver README dentro de este mismo repo)
+   ========================================================= */
+const DB_KEY = 'clinicaEB_db_v1';
+const AUTH_KEY = 'clinicaEB_auth';
+const CLINIC_PASSWORD = 'clinica2026'; // cambiar acá o migrar a login real más adelante
+
+const PROCEDIMIENTOS = ['Consulta','Diagnóstico','Caries','Restauración','Sellador','Extracción','Endodoncia','Tratamiento periodontal','Corona','Perno Muñón','Prótesis Fija','Prótesis Removible','Implante','Limpieza','Blanqueamiento','Control','Reparación','Otro'];
+
+/* Convención clásica de odontograma en papel: ROJO = tratamiento requerido, AZUL = tratamiento ya realizado */
+const COLOR_RED = '#D6362A';
+const COLOR_BLUE = '#1F5FA8';
+
+/* Símbolo que corresponde a cada procedimiento (según referencias de la ficha en papel) */
+const PROC_META = {
+  'Extracción': {kind:'whole', symbol:'/'},
+  'Endodoncia': {kind:'whole', symbol:'TC'},
+  'Tratamiento periodontal': {kind:'whole', symbol:'Pd'},
+  'Corona': {kind:'whole', symbol:'o'},
+  'Perno Muñón': {kind:'whole', symbol:'PM'},
+  'Prótesis Fija': {kind:'whole', symbol:'PF'},
+  'Prótesis Removible': {kind:'whole', symbol:'PR'},
+  'Implante': {kind:'whole', symbol:'Im'},
+  'Caries': {kind:'surface', mark:'caries'},
+  'Restauración': {kind:'surface', mark:'obturacion'},
+  'Sellador': {kind:'surface', mark:'obturacion'}
+};
+
+const LEGEND_ITEMS = [
+  {sym:'X', label:'Diente ausente'},
+  {sym:'/', label:'Extracción'},
+  {sym:'••', label:'Caries'},
+  {sym:'■', label:'Obturación'},
+  {sym:'TC', label:'Tratamiento de conducto'},
+  {sym:'Pd', label:'Enf. periodontal'},
+  {sym:'o', label:'Corona'},
+  {sym:'PM', label:'Perno muñón'},
+  {sym:'PF', label:'Prótesis fija'},
+  {sym:'PR', label:'Prótesis removible'}
+];
+
+const FDI_UPPER = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
+const FDI_LOWER = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+const ALL_TEETH = FDI_UPPER.concat(FDI_LOWER);
+
+function emptyAntecedentes(){
+  return {
+    diabetes:false, hipertension:false, cardiopatias:false, coagulacion:false, embarazo:false,
+    alergias:{tiene:false, detalle:''},
+    medicacion:{tiene:false, detalle:''},
+    cirugias:{tiene:false, detalle:''},
+    otras:{tiene:false, detalle:''},
+    observacionesMedicas:''
+  };
+}
+function emptyOdontograma(){
+  const o = {};
+  ALL_TEETH.forEach(n => { o[n] = {ausente:false, tratamientos:[]}; });
+  return o;
+}
+
+/* Calcula qué mostrar en el cuadrado de la pieza a partir de su historial de tratamientos,
+   siguiendo la convención de la ficha en papel (rojo=requerido, azul=realizado, símbolos por cara). */
+function computeToothVisual(n, toothData){
+  if(toothData.ausente) return {ausente:true};
+  const first = String(n)[0];
+  const isUpper = (first==='1' || first==='2');
+  const isRightSide = (first==='1' || first==='4');
+  const posMap = {
+    vestibular: isUpper ? 'top' : 'bottom',
+    lingual: isUpper ? 'bottom' : 'top',
+    mesial: isRightSide ? 'right' : 'left',
+    distal: isRightSide ? 'left' : 'right'
+  };
+  let whole = null;
+  const surfaces = {top:null, right:null, bottom:null, left:null};
+  const treatments = (toothData.tratamientos||[]).filter(t=>t.estado!=='Cancelado').slice().sort((a,b)=>a.fecha.localeCompare(b.fecha));
+  treatments.forEach(t=>{
+    const meta = PROC_META[t.procedimiento];
+    if(!meta) return;
+    const color = t.estado==='Finalizado' ? COLOR_BLUE : COLOR_RED;
+    if(meta.kind==='whole'){
+      whole = {symbol:meta.symbol, color};
+    } else if(meta.kind==='surface'){
+      (t.superficies||[]).forEach(s=>{
+        const pos = posMap[s];
+        if(pos) surfaces[pos] = {mark:meta.mark, color};
+      });
+    }
+  });
+  return {ausente:false, whole, surfaces};
+}
+
+/* =========================================================
+   CONEXIÓN CON EL BACKEND (Google Sheets / Apps Script)
+   Mismo patrón JSONP que BC Salud y GG Taller: todo por GET,
+   sin fetch/CORS, con un <script> dinámico por llamada.
+   ========================================================= */
+let _jsonpCounter = 0;
+function jsonp(params){
+  return new Promise((resolve, reject)=>{
+    if(!CLINICA_API_URL || CLINICA_API_URL.indexOf('PEGA_AQUI') === 0){
+      reject(new Error('Todavía no configuraste la URL del Apps Script en config.js'));
+      return;
+    }
+    const cbName = '_cb' + (++_jsonpCounter) + '_' + Date.now();
+    const full = Object.assign({}, params, {callback: cbName});
+    const qs = Object.keys(full).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(full[k])).join('&');
+    const script = document.createElement('script');
+    let done = false;
+    const cleanup = ()=>{ done = true; delete window[cbName]; script.remove(); };
+    window[cbName] = (data)=>{ cleanup(); resolve(data); };
+    script.onerror = ()=>{ if(!done){ cleanup(); reject(new Error('No se pudo conectar con el servidor.')); } };
+    script.src = CLINICA_API_URL + (CLINICA_API_URL.includes('?') ? '&' : '?') + qs;
+    document.body.appendChild(script);
+    setTimeout(()=>{ if(!done){ cleanup(); reject(new Error('Tiempo de espera agotado. Revisá tu conexión.')); } }, 20000);
+  });
+}
+async function callApi(params){
+  const res = await jsonp(params);
+  if(res && res.error) throw new Error(res.error);
+  return res;
+}
+
+/* =========================================================
+   MODO OFFLINE — caché local + cola de cambios pendientes.
+   Si no hay conexión, todo se guarda en el dispositivo y se
+   sincroniza solo con la planilla apenas vuelva la señal.
+   ========================================================= */
+const CACHE_KEY = 'clinicaEB_cache_db';
+const QUEUE_KEY = 'clinicaEB_pending_queue';
+let PENDING_QUEUE = [];
+let FLUSHING = false;
+
+function nowLocalId(prefix){ return prefix + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function loadQueueFromStorage(){ try{ PENDING_QUEUE = JSON.parse(localStorage.getItem(QUEUE_KEY)||'[]'); } catch(e){ PENDING_QUEUE = []; } }
+function persistQueue(){ localStorage.setItem(QUEUE_KEY, JSON.stringify(PENDING_QUEUE)); renderQueueBadge(); }
+function cacheDBLocally(){ try{ localStorage.setItem(CACHE_KEY, JSON.stringify({patients:DB.patients, nextHistNumber:DB.nextHistNumber, cachedAt:new Date().toISOString()})); } catch(e){} }
+function loadCachedDB(){ try{ const raw = localStorage.getItem(CACHE_KEY); return raw ? JSON.parse(raw) : null; } catch(e){ return null; } }
+
+function buildRequestParams(item){
+  switch(item.accion){
+    case 'crearPaciente': return {accion:'crearPaciente', data: JSON.stringify(item.dataObj)};
+    case 'actualizarPaciente': return {accion:'actualizarPaciente', id:item.dataObj.id, data: JSON.stringify(item.dataObj.patch)};
+    case 'agregarTratamiento': return {accion:'agregarTratamiento', data: JSON.stringify(item.dataObj)};
+    case 'agregarConsulta': return {accion:'agregarConsulta', data: JSON.stringify(item.dataObj)};
+    case 'agregarPlanItem': return {accion:'agregarPlanItem', data: JSON.stringify(item.dataObj)};
+    case 'actualizarPlanEstado': return {accion:'actualizarPlanEstado', id:item.dataObj.id, estado:item.dataObj.estado};
+    case 'setPiezaAusente': return {accion:'setPiezaAusente', pacienteId:item.dataObj.pacienteId, pieza:item.dataObj.pieza, valor:String(item.dataObj.valor)};
+    default: return {accion:item.accion};
+  }
+}
+function enqueue(accion, dataObj, tempId){
+  const item = {qid: nowLocalId('q'), accion, dataObj, tempId: tempId||null, createdAt:new Date().toISOString()};
+  PENDING_QUEUE.push(item);
+  persistQueue();
+  return item;
+}
+function applyCreateResult(item, res){
+  if(!item.tempId || !res || !res.id) return;
+  const realId = res.id;
+  if(item.accion === 'crearPaciente'){
+    const p = DB.patients.find(pp=>pp.id===item.tempId);
+    if(p){ p.id=realId; if(res.historiaNro) p.historiaNro=res.historiaNro; if(res.createdAt) p.createdAt=res.createdAt; if(res.updatedAt) p.updatedAt=res.updatedAt; }
+    if(STATE.currentPatientId===item.tempId) STATE.currentPatientId=realId;
+    if(STATE.drawerPid===item.tempId) STATE.drawerPid=realId;
+  } else {
+    DB.patients.forEach(p=>{
+      Object.values(p.odontograma||{}).forEach(t=> t.tratamientos.forEach(tr=>{ if(tr.id===item.tempId) tr.id=realId; }));
+      (p.consultas||[]).forEach(c=>{ if(c.id===item.tempId) c.id=realId; });
+      (p.plan||[]).forEach(pl=>{ if(pl.id===item.tempId) pl.id=realId; });
+    });
+  }
+  PENDING_QUEUE.forEach(qi=>{
+    if(qi.dataObj.pacienteId === item.tempId) qi.dataObj.pacienteId = realId;
+    if(qi.dataObj.id === item.tempId) qi.dataObj.id = realId;
+    if(qi.dataObj.patch && qi.dataObj.patch.id === item.tempId) qi.dataObj.patch.id = realId;
+  });
+  cacheDBLocally();
+}
+async function flushQueue(silent){
+  if(FLUSHING || !PENDING_QUEUE.length) return;
+  FLUSHING = true;
+  let syncedAny = false;
+  try{
+    while(PENDING_QUEUE.length){
+      const item = PENDING_QUEUE[0];
+      const params = buildRequestParams(item);
+      let res;
+      try{ res = await jsonp(params); }
+      catch(e){ break; } // seguimos sin conexión: paramos y reintentamos después
+      if(res && res.error){
+        toast('No se pudo sincronizar un cambio pendiente: ' + res.error);
+        PENDING_QUEUE.shift(); persistQueue();
+        continue;
+      }
+      applyCreateResult(item, res);
+      PENDING_QUEUE.shift(); persistQueue();
+      syncedAny = true;
+    }
+  } finally {
+    FLUSHING = false;
+    renderQueueBadge();
+    if(syncedAny && !silent){ toast('Cambios pendientes sincronizados.'); renderView(); }
+  }
+}
+function renderQueueBadge(){
+  const el = document.getElementById('queueBadge');
+  if(!el) return;
+  if(PENDING_QUEUE.length){
+    el.style.display = 'inline-flex';
+    el.textContent = '🔄 ' + PENDING_QUEUE.length + (PENDING_QUEUE.length>1 ? ' pendientes' : ' pendiente');
+  } else {
+    el.style.display = 'none';
+  }
+}
+async function loadFromServerAndMerge(){
+  const payload = await callApi({accion:'getTodo'});
+  const built = buildDBFromServer(payload);
+  const pendingLocal = DB.patients.filter(p => String(p.id).startsWith('tmp_'));
+  DB.patients = built.patients.concat(pendingLocal);
+  DB.nextHistNumber = built.nextHistNumber;
+  cacheDBLocally();
+}
+
+/* ---------- Aplanar / desaplanar registros para la planilla ---------- */
+function flattenTratamiento(pacienteId, pieza, tr){
+  return {
+    pacienteId, pieza,
+    fecha: tr.fecha, procedimiento: tr.procedimiento,
+    superficies: (tr.superficies||[]).join(','),
+    profesional: tr.profesional, diagnostico: tr.diagnostico, descripcion: tr.descripcion,
+    material: tr.material, estado: tr.estado, observaciones: tr.observaciones, costo: tr.costo,
+    garantiaTiene: !!(tr.garantia && tr.garantia.tiene),
+    garantiaInicio: (tr.garantia && tr.garantia.inicio) || '',
+    garantiaVencimiento: (tr.garantia && tr.garantia.vencimiento) || ''
+  };
+}
+function unflattenTratamiento(row){
+  return {
+    id: row.id, fecha: row.fecha, procedimiento: row.procedimiento,
+    superficies: (row.superficies||'').toString().split(',').filter(Boolean),
+    profesional: row.profesional, diagnostico: row.diagnostico, descripcion: row.descripcion,
+    material: row.material, estado: row.estado, observaciones: row.observaciones, costo: row.costo,
+    garantia: (row.garantiaTiene === true || row.garantiaTiene === 'true')
+      ? {tiene:true, inicio: row.garantiaInicio, vencimiento: row.garantiaVencimiento}
+      : {tiene:false}
+  };
+}
+function unflattenPaciente(row){
+  const ausentes = (row.piezasAusentes||'').toString().split(',').map(s=>s.trim()).filter(Boolean);
+  const p = Object.assign({}, row, {
+    antecedentes: {
+      diabetes: row.diabetes===true||row.diabetes==='true',
+      hipertension: row.hipertension===true||row.hipertension==='true',
+      cardiopatias: row.cardiopatias===true||row.cardiopatias==='true',
+      coagulacion: row.coagulacion===true||row.coagulacion==='true',
+      embarazo: row.embarazo===true||row.embarazo==='true',
+      alergias: {tiene: row.alergiasTiene===true||row.alergiasTiene==='true', detalle: row.alergiasDetalle||''},
+      medicacion: {tiene: row.medicacionTiene===true||row.medicacionTiene==='true', detalle: row.medicacionDetalle||''},
+      cirugias: {tiene: row.cirugiasTiene===true||row.cirugiasTiene==='true', detalle: row.cirugiasDetalle||''},
+      otras: {tiene: row.otrasTiene===true||row.otrasTiene==='true', detalle: row.otrasDetalle||''},
+      observacionesMedicas: row.observacionesMedicas || ''
+    },
+    odontograma: emptyOdontograma(),
+    consultas: [], plan: []
+  });
+  ausentes.forEach(n=>{ if(p.odontograma[n]) p.odontograma[n].ausente = true; });
+  return p;
+}
+function buildDBFromServer(payload){
+  const patients = (payload.pacientes||[]).map(unflattenPaciente);
+  const byId = {}; patients.forEach(p=> byId[p.id]=p);
+  (payload.tratamientos||[]).forEach(t=>{
+    const p = byId[t.pacienteId]; if(!p) return;
+    const pieza = String(t.pieza);
+    if(!p.odontograma[pieza]) return;
+    p.odontograma[pieza].tratamientos.push(unflattenTratamiento(t));
+  });
+  (payload.consultas||[]).forEach(c=>{
+    const p = byId[c.pacienteId]; if(!p) return;
+    p.consultas.push({
+      id:c.id, fecha:c.fecha, motivo:c.motivo, diagnostico:c.diagnostico,
+      piezas:(c.piezas||'').toString().split(',').filter(Boolean).map(Number),
+      observaciones:c.observaciones, indicaciones:c.indicaciones, proximoControl:c.proximoControl
+    });
+  });
+  (payload.plan||[]).forEach(pl=>{
+    const p = byId[pl.pacienteId]; if(!p) return;
+    p.plan.push({id:pl.id, pieza:Number(pl.pieza), procedimiento:pl.procedimiento, estado:pl.estado});
+  });
+  let nextHist = patients.reduce((m,p)=>Math.max(m, Number(p.historiaNro)||0), 0) + 1;
+  return {patients, nextHistNumber: nextHist};
+}
+
+function uid(prefix){ return prefix + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function todayISO(){ return new Date().toISOString().slice(0,10); }
+function fmtDate(iso){
+  if(!iso) return '—';
+  const datePart = String(iso).slice(0,10);
+  const m = datePart.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!m) return String(iso);
+  return `${m[3]}/${m[2]}/${m[1]}`;
+}
+function calcEdad(iso){ if(!iso) return '—'; const b=new Date(iso), t=new Date(); let e=t.getFullYear()-b.getFullYear(); const m=t.getMonth()-b.getMonth(); if(m<0||(m===0&&t.getDate()<b.getDate())) e--; return e; }
+function initials(nombre,apellido){ return ((nombre?.[0]||'')+(apellido?.[0]||'')).toUpperCase(); }
+
+function garantiaEstado(g){
+  if(!g || !g.tiene || !g.vencimiento) return null;
+  const hoy = new Date(todayISO());
+  const venc = new Date(g.vencimiento);
+  const diffDias = Math.floor((venc - hoy)/(1000*60*60*24));
+  if(diffDias < 0) return {estado:'vencida', label:'Garantía vencida', chip:'chip-red'};
+  if(diffDias <= 30) return {estado:'proxima', label:'Vence pronto', chip:'chip-amber'};
+  return {estado:'vigente', label:'Garantía vigente', chip:'chip-green'};
+}
+
+let DB = { patients: [], nextHistNumber: 1 };
+let STATE = { view:'dashboard', currentPatientId:null, currentTab:'resumen', drawerTooth:null, drawerSurfaces:[], drawerAusente:false };
+
+/* =========================================================
+   RENDER HELPERS
+   ========================================================= */
+const $app = document.getElementById('app');
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+function esc(s){ return (s||'').toString().replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+const TRI_POINTS = {
+  top:'20,20 1,1 39,1',
+  right:'20,20 39,1 39,39',
+  bottom:'20,20 39,39 1,39',
+  left:'20,20 1,39 1,1'
+};
+const TRI_CENTROID = {top:[20,9], right:[31,20], bottom:[20,31], left:[9,20]};
+
+function surfaceMarkSVG(pos, mark){
+  if(!mark) return '';
+  if(mark.mark==='caries'){
+    const [cx,cy] = TRI_CENTROID[pos];
+    return `<circle cx="${cx-3}" cy="${cy}" r="1.7" fill="${mark.color}"/><circle cx="${cx+3}" cy="${cy}" r="1.7" fill="${mark.color}"/>`;
+  }
+  // obturación / sellador -> cara rellena
+  return `<polygon points="${TRI_POINTS[pos]}" fill="${mark.color}"/>`;
+}
+
+function toothSquareSVG(n, toothData){
+  const v = computeToothVisual(n, toothData);
+  let svg = `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">`;
+  svg += `<rect x="1" y="1" width="38" height="38" fill="#FFFFFF" stroke="#9A9585" stroke-width="1.3"/>`;
+  if(v.ausente){
+    svg += `<line x1="4" y1="4" x2="36" y2="36" stroke="#2E332B" stroke-width="2.2"/>`;
+    svg += `<line x1="36" y1="4" x2="4" y2="36" stroke="#2E332B" stroke-width="2.2"/>`;
+    svg += `</svg>`;
+    return svg;
+  }
+  svg += `<line x1="1" y1="1" x2="39" y2="39" stroke="#DDD8CB" stroke-width="0.8"/>`;
+  svg += `<line x1="39" y1="1" x2="1" y2="39" stroke="#DDD8CB" stroke-width="0.8"/>`;
+  ['top','right','bottom','left'].forEach(pos=>{ svg += surfaceMarkSVG(pos, v.surfaces[pos]); });
+  svg += `<rect x="1" y="1" width="38" height="38" fill="none" stroke="#9A9585" stroke-width="1.3"/>`;
+  svg += `<line x1="1" y1="1" x2="39" y2="39" stroke="#B5B0A0" stroke-width="0.8"/>`;
+  svg += `<line x1="39" y1="1" x2="1" y2="39" stroke="#B5B0A0" stroke-width="0.8"/>`;
+  if(v.whole){
+    if(v.whole.symbol==='/'){
+      svg += `<line x1="6" y1="34" x2="34" y2="6" stroke="${v.whole.color}" stroke-width="2.6"/>`;
+    } else if(v.whole.symbol==='o'){
+      svg += `<circle cx="20" cy="20" r="13" fill="#FFFFFF" stroke="${v.whole.color}" stroke-width="2.2"/>`;
+    } else {
+      svg += `<circle cx="20" cy="20" r="11" fill="#FFFFFF" stroke="${v.whole.color}" stroke-width="1.4"/>`;
+      svg += `<text x="20" y="23.5" text-anchor="middle" font-size="9.5" font-weight="700" font-family="Inter" fill="${v.whole.color}">${v.whole.symbol}</text>`;
+    }
+  }
+  svg += `</svg>`;
+  return svg;
+}
+
+function renderApp(){
+  $app.innerHTML = `
+    <div class="topbar">
+      <img class="logo" src="logo.png" alt="logo">
+      <div class="brand">Ma. Eugenia Blanco<small>Odontopediatra</small></div>
+      <div class="spacer"></div>
+      <div class="search-wrap" id="searchWrap" style="max-width:340px; flex:1;">
+        <div class="topbar-search">
+          <span>🔍</span>
+          <input id="globalSearch" placeholder="Buscar paciente por nombre, DNI, teléfono o Nº historia...">
+        </div>
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <button class="icon-btn search-toggle-btn" onclick="toggleMobileSearch()" title="Buscar">🔍</button>
+      <button class="icon-btn" onclick="refreshFromServer()" title="Actualizar datos">⟳</button>
+      <span id="queueBadge" class="queue-badge" style="display:none;" onclick="flushQueue()" title="Tocá para reintentar sincronizar ahora"></span>
+      <button class="icon-btn" onclick="goDashboard()" title="Inicio">🏠</button>
+      <button class="icon-btn" onclick="logout()" title="Salir">⎋</button>
+    </div>
+    <main id="main"></main>
+    <button class="fab" onclick="openNewPatientModal()" title="Nuevo paciente">＋</button>
+  `;
+  document.getElementById('globalSearch').addEventListener('input', onGlobalSearch);
+  document.getElementById('globalSearch').addEventListener('focus', onGlobalSearch);
+  document.addEventListener('click', (e)=>{
+    if(!e.target.closest('.search-wrap') && !e.target.closest('.search-toggle-btn')){
+      document.getElementById('searchDropdown').style.display='none';
+      document.getElementById('searchWrap')?.classList.remove('mobile-open');
+    }
+  });
+  renderQueueBadge();
+  renderView();
+}
+function toggleMobileSearch(){
+  const wrap = document.getElementById('searchWrap');
+  wrap.classList.toggle('mobile-open');
+  if(wrap.classList.contains('mobile-open')){
+    setTimeout(()=> document.getElementById('globalSearch').focus(), 50);
+  } else {
+    document.getElementById('searchDropdown').style.display='none';
+  }
+}
+function focusSearch(){
+  const wrap = document.getElementById('searchWrap');
+  if(getComputedStyle(wrap).display === 'none'){ wrap.classList.add('mobile-open'); }
+  setTimeout(()=> document.getElementById('globalSearch').focus(), 50);
+}
+
+function renderLoading(msg){
+  $app.innerHTML = `
+    <div class="login-screen">
+      <div class="login-card">
+        <img src="logo.png" alt="logo">
+        <h1>Ma. Eugenia Blanco</h1>
+        <p class="sub">${esc(msg)}</p>
+      </div>
+    </div>`;
+}
+function renderConexionError(msg){
+  $app.innerHTML = `
+    <div class="login-screen">
+      <div class="login-card">
+        <img src="logo.png" alt="logo">
+        <h1>No se pudo conectar</h1>
+        <p class="sub">${esc(msg)}</p>
+        <button class="btn btn-primary" onclick="startApp()">Reintentar</button>
+        <button class="btn btn-ghost" style="width:100%; margin-top:10px;" onclick="logout()">Salir</button>
+      </div>
+    </div>`;
+}
+
+async function startApp(){
+  if(localStorage.getItem(AUTH_KEY) !== '1'){ renderLogin(); return; }
+  renderLoading('Conectando con la planilla...');
+  loadQueueFromStorage();
+  const cached = loadCachedDB();
+  if(cached){ DB.patients = cached.patients; DB.nextHistNumber = cached.nextHistNumber; }
+  try{
+    await loadFromServerAndMerge();
+    STATE.view = 'dashboard'; STATE.currentPatientId = null;
+    renderApp();
+    flushQueue();
+  } catch(err){
+    if(cached){
+      STATE.view = 'dashboard'; STATE.currentPatientId = null;
+      renderApp();
+      toast('Sin conexión — mostrando los últimos datos guardados en este dispositivo.');
+    } else {
+      renderConexionError(err.message);
+    }
+  }
+}
+async function refreshFromServer(){
+  const prevView = STATE.view, prevPid = STATE.currentPatientId, prevTab = STATE.currentTab;
+  try{
+    await loadFromServerAndMerge();
+    STATE.view = prevView; STATE.currentPatientId = prevPid; STATE.currentTab = prevTab;
+    renderView();
+    toast('Datos actualizados.');
+    flushQueue(true);
+  } catch(err){
+    toast('Sin conexión — no se pudo actualizar. Los cambios que hagas ahora se guardan igual en este dispositivo.');
+  }
+}
+
+function renderLogin(){
+  $app.innerHTML = `
+    <div class="login-screen">
+      <div class="login-card">
+        <img src="logo.png" alt="logo">
+        <h1>Ma. Eugenia Blanco</h1>
+        <p class="sub">Historia Clínica Odontológica Digital</p>
+        <div class="field" style="margin-bottom:8px;">
+          <label>Contraseña</label>
+          <input type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <div class="login-error" id="loginErr"></div>
+        <button class="btn btn-primary" onclick="doLogin()">Ingresar</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('loginPass').focus();
+}
+function doLogin(){
+  const val = document.getElementById('loginPass').value;
+  if(val === CLINIC_PASSWORD){
+    localStorage.setItem(AUTH_KEY,'1');
+    startApp();
+  } else {
+    document.getElementById('loginErr').textContent = 'Contraseña incorrecta.';
+  }
+}
+function logout(){ localStorage.removeItem(AUTH_KEY); renderLogin(); }
+
+
+function goDashboard(){ STATE.view='dashboard'; STATE.currentPatientId=null; renderView(); }
+
+function onGlobalSearch(e){
+  const q = e.target.value.trim().toLowerCase();
+  const dd = document.getElementById('searchDropdown');
+  if(!q){ dd.style.display='none'; return; }
+  const results = DB.patients.filter(p => matchPatient(p,q)).slice(0,8);
+  if(results.length===0){ dd.innerHTML = `<div class="empty-note">Sin resultados para "${esc(q)}"</div>`; dd.style.display='block'; return; }
+  dd.innerHTML = results.map(p=>`
+    <div class="patient-row" onclick="openPatient('${p.id}')">
+      <div class="avatar">${initials(p.nombre,p.apellido)}</div>
+      <div class="info">
+        <div class="name">${esc(p.nombre)} ${esc(p.apellido)}</div>
+        <div class="meta">DNI ${esc(p.dni||'—')} · Última consulta: ${fmtDate(lastConsultaFecha(p))}</div>
+      </div>
+    </div>
+  `).join('');
+  dd.style.display='block';
+}
+function matchPatient(p,q){
+  return (String(p.nombre||'')+' '+String(p.apellido||'')).toLowerCase().includes(q) ||
+    String(p.dni||'').includes(q) || String(p.telefono||'').includes(q) || String(p.whatsapp||'').includes(q) ||
+    String(p.historiaNro||'').includes(q);
+}
+function lastConsultaFecha(p){
+  if(!p.consultas || p.consultas.length===0) return null;
+  return p.consultas.slice().sort((a,b)=>b.fecha.localeCompare(a.fecha))[0].fecha;
+}
+
+/* =========================================================
+   VIEW ROUTER
+   ========================================================= */
+function renderView(){
+  const main = document.getElementById('main');
+  if(STATE.view==='dashboard') main.innerHTML = renderDashboard();
+  else if(STATE.view==='patient') main.innerHTML = renderPatientView(getPatient(STATE.currentPatientId));
+  window.scrollTo(0,0);
+}
+function getPatient(id){ return DB.patients.find(p=>p.id===id); }
+function openPatient(id){
+  STATE.view='patient'; STATE.currentPatientId=id; STATE.currentTab='resumen';
+  document.getElementById('searchDropdown').style.display='none';
+  document.getElementById('globalSearch').value='';
+  document.getElementById('searchWrap')?.classList.remove('mobile-open');
+  renderView();
+}
+
+/* ---------- DASHBOARD ---------- */
+function renderDashboard(){
+  const totalPac = DB.patients.length;
+  const mesActual = todayISO().slice(0,7);
+  const consultasMes = DB.patients.reduce((acc,p)=>acc + p.consultas.filter(c=>c.fecha.startsWith(mesActual)).length, 0);
+  const tratActivos = DB.patients.reduce((acc,p)=>acc + Object.values(p.odontograma).reduce((a2,t)=>a2 + t.tratamientos.filter(tr=>tr.estado==='Pendiente'||tr.estado==='En proceso').length,0), 0);
+  let garantiasProximas = 0;
+  DB.patients.forEach(p=> Object.values(p.odontograma).forEach(t => t.tratamientos.forEach(tr=>{
+    const g = garantiaEstado(tr.garantia);
+    if(g && g.estado==='proxima') garantiasProximas++;
+  })));
+
+  const recientes = DB.patients.slice().sort((a,b)=>(b.updatedAt||'').localeCompare(a.updatedAt||'')).slice(0,5);
+
+  return `
+    <div class="dash-grid">
+      <div class="stat-card"><div class="num">${totalPac}</div><div class="lbl">Pacientes registrados</div></div>
+      <div class="stat-card"><div class="num">${consultasMes}</div><div class="lbl">Consultas este mes</div></div>
+      <div class="stat-card"><div class="num">${tratActivos}</div><div class="lbl">Tratamientos activos</div></div>
+      <div class="stat-card"><div class="num">${garantiasProximas}</div><div class="lbl">Garantías por vencer</div></div>
+    </div>
+    <div class="action-row">
+      <div class="action-card primary" onclick="focusSearch()">
+        <div class="ico">🔍</div>
+        <div><h3>Buscar paciente</h3><p>Por nombre, DNI, teléfono o Nº de historia</p></div>
+      </div>
+      <div class="action-card accent" onclick="openNewPatientModal()">
+        <div class="ico">🧑‍⚕️</div>
+        <div><h3>Nuevo paciente</h3><p>Crear una ficha de historia clínica</p></div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="panel">
+        <h2>Pacientes recientes</h2>
+        ${recientes.length? recientes.map(p=>`
+          <div class="patient-row" onclick="openPatient('${p.id}')">
+            <div class="avatar">${initials(p.nombre,p.apellido)}</div>
+            <div class="info">
+              <div class="name">${esc(p.nombre)} ${esc(p.apellido)}</div>
+              <div class="meta">Historia Nº ${p.historiaNro} · Última consulta: ${fmtDate(lastConsultaFecha(p))}</div>
+            </div>
+          </div>
+        `).join('') : `<div class="empty-note">Todavía no hay pacientes cargados.</div>`}
+      </div>
+      <div class="panel">
+        <h2>Próximos turnos</h2>
+        <div class="empty-note">La agenda de turnos se incorporará en la Fase 2.</div>
+      </div>
+    </div>
+  `;
+}
+
+/* ---------- NUEVO PACIENTE ---------- */
+function openNewPatientModal(){
+  const html = `
+    <div class="modal-overlay active" id="modalNP">
+      <div class="modal">
+        <div class="modal-head"><h2>Nuevo paciente</h2><button class="modal-close" onclick="closeModal('modalNP')">✕</button></div>
+        <div class="modal-body">
+          ${patientFormFields()}
+          <button class="btn btn-primary" style="margin-top:16px;" onclick="saveNewPatient()">Guardar paciente</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+function patientFormFields(prefix='np', p={}){
+  return `
+    <div class="section-title">Datos personales</div>
+    <div class="form-grid">
+      <div class="field"><label>Nombre *</label><input id="${prefix}_nombre" value="${esc(p.nombre)}"></div>
+      <div class="field"><label>Apellido *</label><input id="${prefix}_apellido" value="${esc(p.apellido)}"></div>
+      <div class="field"><label>DNI</label><input id="${prefix}_dni" value="${esc(p.dni)}"></div>
+      <div class="field"><label>Fecha de nacimiento</label><input type="date" id="${prefix}_fnac" value="${p.fechaNacimiento||''}"></div>
+      <div class="field"><label>Sexo</label>
+        <select id="${prefix}_sexo"><option value="">—</option><option value="F" ${p.sexo==='F'?'selected':''}>Femenino</option><option value="M" ${p.sexo==='M'?'selected':''}>Masculino</option><option value="Otro" ${p.sexo==='Otro'?'selected':''}>Otro</option></select>
+      </div>
+      <div class="field"><label>Teléfono</label><input id="${prefix}_telefono" value="${esc(p.telefono)}"></div>
+      <div class="field"><label>WhatsApp</label><input id="${prefix}_whatsapp" value="${esc(p.whatsapp)}"></div>
+      <div class="field"><label>Email</label><input id="${prefix}_email" value="${esc(p.email)}"></div>
+      <div class="field"><label>Domicilio</label><input id="${prefix}_domicilio" value="${esc(p.domicilio)}"></div>
+      <div class="field"><label>Localidad</label><input id="${prefix}_localidad" value="${esc(p.localidad)}"></div>
+      <div class="field"><label>Provincia</label><input id="${prefix}_provincia" value="${esc(p.provincia)}"></div>
+      <div class="field"><label>Contacto de emergencia</label><input id="${prefix}_contactoEmergencia" value="${esc(p.contactoEmergencia)}"></div>
+      <div class="field"><label>Obra social</label><input id="${prefix}_obraSocial" value="${esc(p.obraSocial)}"></div>
+      <div class="field"><label>Número de afiliado</label><input id="${prefix}_numeroAfiliado" value="${esc(p.numeroAfiliado)}"></div>
+      <div class="field full"><label>Observaciones</label><textarea id="${prefix}_observaciones">${esc(p.observaciones)}</textarea></div>
+    </div>
+  `;
+}
+function readPatientForm(prefix){
+  const v = id => document.getElementById(`${prefix}_${id}`).value.trim();
+  return {
+    nombre:v('nombre'), apellido:v('apellido'), dni:v('dni'), fechaNacimiento:v('fnac'), sexo:v('sexo'),
+    telefono:v('telefono'), whatsapp:v('whatsapp'), email:v('email'), domicilio:v('domicilio'),
+    localidad:v('localidad'), provincia:v('provincia'), contactoEmergencia:v('contactoEmergencia'),
+    obraSocial:v('obraSocial'), numeroAfiliado:v('numeroAfiliado'), observaciones:v('observaciones')
+  };
+}
+async function saveNewPatient(){
+  const data = readPatientForm('np');
+  if(!data.nombre || !data.apellido){ toast('Completá al menos nombre y apellido.'); return; }
+  let created, queued = false;
+  try{
+    created = await callApi({accion:'crearPaciente', data: JSON.stringify(data)});
+  } catch(err){
+    const tempId = nowLocalId('tmp_pac');
+    created = Object.assign({id:tempId, historiaNro: DB.nextHistNumber, createdAt:new Date().toISOString(), updatedAt:new Date().toISOString()}, data);
+    enqueue('crearPaciente', data, tempId);
+    queued = true;
+  }
+  const p = Object.assign({}, created, {
+    antecedentes: emptyAntecedentes(), odontograma: emptyOdontograma(), consultas: [], plan: []
+  });
+  DB.patients.push(p);
+  DB.nextHistNumber = Math.max(DB.nextHistNumber, Number(p.historiaNro)+1);
+  cacheDBLocally();
+  closeModal('modalNP');
+  toast(queued ? 'Sin conexión: paciente guardado en este dispositivo, se sincronizará solo.' : 'Paciente creado correctamente.');
+  openPatient(p.id);
+}
+function closeModal(id){ const el = document.getElementById(id); if(el) el.remove(); }
+
+/* ---------- PATIENT VIEW ---------- */
+function renderPatientView(p){
+  if(!p) return `<div class="empty-note">Paciente no encontrado.</div>`;
+  const alerts = buildAlerts(p);
+  return `
+    <div class="patient-header">
+      <div class="avatar-lg">${initials(p.nombre,p.apellido)}</div>
+      <div class="ph-info">
+        <h1>${esc(p.nombre)} ${esc(p.apellido)}</h1>
+        <div class="ph-meta">
+          <span>DNI ${esc(p.dni||'—')}</span>
+          <span>${calcEdad(p.fechaNacimiento)} años</span>
+          <span>Historia Nº ${p.historiaNro}</span>
+          <span>Obra social: ${esc(p.obraSocial||'Particular')}</span>
+        </div>
+        <div class="alerts">${alerts.length? alerts.join('') : '<span class="chip chip-gray">Sin alertas médicas registradas</span>'}</div>
+      </div>
+      <button class="btn btn-accent" onclick="openNewConsultaModal('${p.id}')">＋ Nueva consulta</button>
+    </div>
+    <div class="tabs">
+      ${tabBtn('resumen','Resumen')}
+      ${tabBtn('datos','Datos personales')}
+      ${tabBtn('antecedentes','Antecedentes')}
+      ${tabBtn('plan','Plan de tratamiento')}
+      ${tabBtn('historial','Historial general')}
+      ${tabBtn('documentos','Documentos')}
+    </div>
+    <div id="tabContent">${renderTab(p)}</div>
+  `;
+}
+function tabBtn(id,label){ return `<button class="tab-btn ${STATE.currentTab===id?'active':''}" onclick="setTab('${id}')">${label}</button>`; }
+function setTab(id){ STATE.currentTab=id; renderView(); }
+
+function buildAlerts(p){
+  const a = p.antecedentes; const chips=[];
+  if(a.alergias?.tiene) chips.push(`<span class="chip chip-red">⚠ Alergia: ${esc(a.alergias.detalle||'sin detalle')}</span>`);
+  if(a.diabetes) chips.push(`<span class="chip chip-amber">Diabetes</span>`);
+  if(a.hipertension) chips.push(`<span class="chip chip-amber">Hipertensión</span>`);
+  if(a.cardiopatias) chips.push(`<span class="chip chip-amber">Cardiopatía</span>`);
+  if(a.coagulacion) chips.push(`<span class="chip chip-amber">Problema de coagulación</span>`);
+  if(a.embarazo) chips.push(`<span class="chip chip-blue">Embarazo</span>`);
+  if(a.medicacion?.tiene) chips.push(`<span class="chip chip-amber">Medicación: ${esc(a.medicacion.detalle||'sin detalle')}</span>`);
+  if(a.cirugias?.tiene) chips.push(`<span class="chip chip-gray">Cirugía previa: ${esc(a.cirugias.detalle||'sin detalle')}</span>`);
+  return chips;
+}
+
+function renderTab(p){
+  if(STATE.currentTab==='resumen') return renderResumen(p);
+  if(STATE.currentTab==='datos') return renderDatos(p);
+  if(STATE.currentTab==='antecedentes') return renderAntecedentes(p);
+  if(STATE.currentTab==='plan') return renderPlan(p);
+  if(STATE.currentTab==='historial') return renderHistorialGeneral(p);
+  if(STATE.currentTab==='documentos') return `<div class="panel"><div class="empty-note">La gestión de fotografías, radiografías y documentos se incorporará en la Fase 2.</div></div>`;
+}
+
+/* ---- RESUMEN / ODONTOGRAMA ---- */
+function renderResumen(p){
+  return `
+    <div class="odonto-wrap">
+      <div class="side-labels"><span>DERECHA</span><span>IZQUIERDA</span></div>
+      <div class="arch-label">Arcada superior</div>
+      <div class="arch">${renderArch(p, FDI_UPPER)}</div>
+      <div class="arch-label">Arcada inferior</div>
+      <div class="arch">${renderArch(p, FDI_LOWER)}</div>
+      <div class="legend-box">
+        <div class="legend-title">
+          <span class="chip" style="background:${COLOR_RED}; color:#fff;">Rojo</span> Tratamientos requeridos
+          <span class="chip" style="background:${COLOR_BLUE}; color:#fff;">Azul</span> Tratamientos realizados
+        </div>
+        <div class="legend-grid">
+          ${LEGEND_ITEMS.map(it=>`<div class="li"><span class="legend-sym">${it.sym}</span>${it.label}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+function renderArch(p, teeth){
+  return teeth.map((n,i)=>{
+    const sep = (i===8) ? '<div class="divider-v"></div>' : '';
+    const t = p.odontograma[n] || {ausente:false, tratamientos:[]};
+    return `${sep}<div class="tooth" onclick="openTooth('${p.id}',${n})"><div class="num">${n}</div>${toothSquareSVG(n,t)}</div>`;
+  }).join('');
+}
+
+/* ---- DATOS PERSONALES ---- */
+function renderDatos(p){
+  return `<div class="panel"><h2>Datos personales</h2>${patientFormFields('ed',p)}
+    <button class="btn btn-primary" style="margin-top:12px; width:auto; padding-left:28px; padding-right:28px;" onclick="saveDatos('${p.id}')">Guardar cambios</button>
+  </div>`;
+}
+async function saveDatos(id){
+  const p = getPatient(id);
+  const patch = readPatientForm('ed');
+  Object.assign(p, patch);
+  p.updatedAt = new Date().toISOString();
+  renderView(); cacheDBLocally();
+  try{
+    await callApi({accion:'actualizarPaciente', id, data: JSON.stringify(patch)});
+    toast('Datos actualizados.');
+  } catch(err){
+    enqueue('actualizarPaciente', {id, patch}, null);
+    toast('Sin conexión: cambios guardados en este dispositivo, se sincronizarán solos.');
+  }
+}
+
+/* ---- ANTECEDENTES ---- */
+function renderAntecedentes(p){
+  const a = p.antecedentes;
+  const simpleRow = (key,label) => `
+    <div class="check-row">
+      <label>${label}</label>
+      <div class="seg">
+        <button class="${!a[key]?'active':''}" onclick="setAntBool('${p.id}','${key}',false)">No</button>
+        <button class="${a[key]?'active':''}" onclick="setAntBool('${p.id}','${key}',true)">Sí</button>
+      </div>
+    </div>`;
+  const detailRow = (key,label,placeholder) => `
+    <div class="check-row" style="flex-wrap:wrap;">
+      <label style="width:100%;">${label}</label>
+      <div class="seg">
+        <button class="${!a[key].tiene?'active':''}" onclick="setAntDetail('${p.id}','${key}','tiene',false)">No</button>
+        <button class="${a[key].tiene?'active':''}" onclick="setAntDetail('${p.id}','${key}','tiene',true)">Sí</button>
+      </div>
+      ${a[key].tiene? `<input class="detail-field" style="width:100%; padding:10px; border-radius:8px; border:1.5px solid var(--line); margin-top:8px;" placeholder="${placeholder}" value="${esc(a[key].detalle)}" onchange="setAntDetail('${p.id}','${key}','detalle',this.value)">` : ''}
+    </div>`;
+  return `
+    <div class="panel">
+      <h2>Antecedentes médicos</h2>
+      ${simpleRow('diabetes','Diabetes')}
+      ${simpleRow('hipertension','Hipertensión')}
+      ${detailRow('alergias','Alergias','Ej: Penicilina, Látex...')}
+      ${detailRow('medicacion','Medicación actual','Detalle de medicamentos')}
+      ${simpleRow('cardiopatias','Cardiopatías')}
+      ${simpleRow('coagulacion','Problemas de coagulación')}
+      ${simpleRow('embarazo','Embarazo')}
+      ${detailRow('cirugias','Cirugías previas','Detalle de cirugías')}
+      ${detailRow('otras','Otros antecedentes relevantes','Detalle')}
+      <div class="field" style="margin-top:14px;">
+        <label>Observaciones médicas generales</label>
+        <textarea onchange="setObsMedicas('${p.id}',this.value)">${esc(a.observacionesMedicas)}</textarea>
+      </div>
+    </div>
+  `;
+}
+async function setAntBool(id,key,val){
+  const p=getPatient(id); p.antecedentes[key]=val; p.updatedAt=new Date().toISOString(); renderView(); cacheDBLocally();
+  try{ await callApi({accion:'actualizarPaciente', id, data: JSON.stringify({[key]: val})}); }
+  catch(err){ enqueue('actualizarPaciente', {id, patch:{[key]:val}}, null); toast('Sin conexión: se sincronizará solo.'); }
+}
+async function setAntDetail(id,key,field,val){
+  const p=getPatient(id); p.antecedentes[key][field]=val; p.updatedAt=new Date().toISOString();
+  if(field==='tiene') renderView();
+  cacheDBLocally();
+  const col = key + (field==='tiene' ? 'Tiene' : 'Detalle');
+  try{ await callApi({accion:'actualizarPaciente', id, data: JSON.stringify({[col]: val})}); }
+  catch(err){ enqueue('actualizarPaciente', {id, patch:{[col]:val}}, null); toast('Sin conexión: se sincronizará solo.'); }
+}
+async function setObsMedicas(id,val){
+  const p=getPatient(id); p.antecedentes.observacionesMedicas=val; p.updatedAt=new Date().toISOString(); cacheDBLocally();
+  try{ await callApi({accion:'actualizarPaciente', id, data: JSON.stringify({observacionesMedicas: val})}); }
+  catch(err){ enqueue('actualizarPaciente', {id, patch:{observacionesMedicas:val}}, null); toast('Sin conexión: se sincronizará solo.'); }
+}
+
+/* ---- PLAN DE TRATAMIENTO ---- */
+function renderPlan(p){
+  return `
+    <div class="panel">
+      <h2>Plan de tratamiento <button class="btn btn-ghost btn-sm" onclick="openAddPlanModal('${p.id}')">＋ Agregar ítem</button></h2>
+      ${p.plan.length? p.plan.map(item=>`
+        <div class="plan-row">
+          <div class="pieza-badge">${item.pieza}</div>
+          <div class="p-info"><div class="p-proc">${esc(item.procedimiento)}</div></div>
+          <select class="status-select" style="background:${planColor(item.estado)}" onchange="setPlanEstado('${p.id}','${item.id}',this.value)">
+            ${['Pendiente','En proceso','Realizado','Cancelado'].map(s=>`<option value="${s}" ${item.estado===s?'selected':''}>${s}</option>`).join('')}
+          </select>
+        </div>
+      `).join('') : `<div class="empty-note">Sin ítems en el plan de tratamiento.</div>`}
+    </div>
+  `;
+}
+function planColor(estado){
+  return {Pendiente:'#FBF0DA', 'En proceso':'#E4EEF6', Realizado:'#E7ECE2', Cancelado:'#EDEDED'}[estado] || '#EDEDED';
+}
+function openAddPlanModal(pid){
+  const html = `
+    <div class="modal-overlay active" id="modalPlan">
+      <div class="modal" style="max-width:420px;">
+        <div class="modal-head"><h2>Agregar al plan</h2><button class="modal-close" onclick="closeModal('modalPlan')">✕</button></div>
+        <div class="modal-body">
+          <div class="field"><label>Pieza (FDI)</label><input id="plan_pieza" type="number" placeholder="Ej: 36"></div>
+          <div class="field"><label>Procedimiento</label>
+            <select id="plan_proc">${PROCEDIMIENTOS.map(pr=>`<option value="${pr}">${pr}</option>`).join('')}</select>
+          </div>
+          <div class="field"><label>Estado</label>
+            <select id="plan_estado">${['Pendiente','En proceso','Realizado','Cancelado'].map(s=>`<option value="${s}">${s}</option>`).join('')}</select>
+          </div>
+          <button class="btn btn-primary" onclick="saveAddPlan('${pid}')">Agregar</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+async function saveAddPlan(pid){
+  const pieza = document.getElementById('plan_pieza').value.trim();
+  if(!pieza){ toast('Indicá el número de pieza.'); return; }
+  const procedimiento = document.getElementById('plan_proc').value;
+  const estado = document.getElementById('plan_estado').value;
+  const dataObj = {pacienteId:pid, pieza:Number(pieza), procedimiento, estado};
+  let id, queued = false;
+  try{
+    const created = await callApi({accion:'agregarPlanItem', data: JSON.stringify(dataObj)});
+    id = created.id;
+  } catch(err){
+    id = nowLocalId('tmp_pl');
+    enqueue('agregarPlanItem', dataObj, id);
+    queued = true;
+  }
+  const p = getPatient(pid);
+  p.plan.push({id, pieza:Number(pieza), procedimiento, estado});
+  cacheDBLocally();
+  closeModal('modalPlan'); renderView();
+  toast(queued ? 'Sin conexión: guardado en este dispositivo.' : 'Ítem agregado al plan.');
+}
+async function setPlanEstado(pid,itemId,val){
+  const p=getPatient(pid); const item=p.plan.find(i=>i.id===itemId); item.estado=val; renderView(); cacheDBLocally();
+  try{ await callApi({accion:'actualizarPlanEstado', id:itemId, estado:val}); }
+  catch(err){ enqueue('actualizarPlanEstado', {id:itemId, estado:val}, null); toast('Sin conexión: se sincronizará solo.'); }
+}
+
+/* ---- HISTORIAL GENERAL ---- */
+function renderHistorialGeneral(p){
+  const items = [];
+  p.consultas.forEach(c => items.push({fecha:c.fecha, tipo:'consulta', data:c}));
+  Object.entries(p.odontograma).forEach(([n,t])=> t.tratamientos.forEach(tr=> items.push({fecha:tr.fecha, tipo:'tratamiento', pieza:n, data:tr})));
+  items.sort((a,b)=> b.fecha.localeCompare(a.fecha));
+  if(items.length===0) return `<div class="panel"><div class="empty-note">Todavía no hay historial registrado para este paciente.</div></div>`;
+  return `<div class="panel"><h2>Historial general</h2><div class="timeline">
+    ${items.map(it=>{
+      if(it.tipo==='consulta'){
+        const c=it.data;
+        return `<div class="tl-item"><div class="tl-date">${fmtDate(c.fecha)}</div>
+          <div class="tl-card"><div class="tl-title">Consulta${c.piezas.length? ' — piezas '+c.piezas.join(', '):''}</div>
+          <div>${esc(c.motivo)}</div>
+          ${c.diagnostico? `<div class="tl-meta">Diagnóstico: ${esc(c.diagnostico)}</div>`:''}
+          ${c.observaciones? `<div class="tl-meta">Observaciones: ${esc(c.observaciones)}</div>`:''}
+          ${c.indicaciones? `<div class="tl-meta">Indicaciones: ${esc(c.indicaciones)}</div>`:''}
+          ${c.proximoControl? `<div class="tl-meta">Próximo control: ${fmtDate(c.proximoControl)}</div>`:''}
+          </div></div>`;
+      } else {
+        const tr=it.data; const g = garantiaEstado(tr.garantia);
+        return `<div class="tl-item"><div class="tl-date">${fmtDate(tr.fecha)}</div>
+          <div class="tl-card"><div class="tl-title">Pieza ${it.pieza} — ${esc(tr.procedimiento)}</div>
+          <div class="tl-meta">${tr.superficies?.length? 'Superficie: '+tr.superficies.join(', ')+' · ':''}${tr.material? 'Material: '+esc(tr.material)+' · ':''}Estado: ${esc(tr.estado)}${tr.profesional? ' · '+esc(tr.profesional):''}</div>
+          ${tr.diagnostico? `<div class="tl-meta">Diagnóstico: ${esc(tr.diagnostico)}</div>`:''}
+          ${tr.descripcion? `<div>${esc(tr.descripcion)}</div>`:''}
+          ${tr.observaciones? `<div class="tl-meta">Observaciones: ${esc(tr.observaciones)}</div>`:''}
+          ${tr.costo? `<div class="tl-meta">Costo: $${esc(String(tr.costo))}</div>`:''}
+          ${g? `<span class="chip ${g.chip}" style="margin-top:6px;">${g.label}</span>`:''}
+          </div></div>`;
+      }
+    }).join('')}
+  </div></div>`;
+}
+
+/* =========================================================
+   ODONTOGRAMA — DRAWER DE PIEZA
+   ========================================================= */
+const SURFACES = [
+  {id:'oclusal', label:'Oclusal/Incisal'},
+  {id:'vestibular', label:'Vestibular'},
+  {id:'lingual', label:'Lingual/Palatina'},
+  {id:'mesial', label:'Mesial'},
+  {id:'distal', label:'Distal'}
+];
+
+function openTooth(pid, n){
+  STATE.drawerTooth = n; STATE.drawerPid = pid; STATE.drawerSurfaces = [];
+  const p = getPatient(pid);
+  STATE.drawerAusente = !!p.odontograma[n].ausente;
+  const overlayHtml = `<div class="overlay active" id="toothOverlay" onclick="closeTooth()"></div>
+  <div class="drawer active" id="toothDrawer">
+    <div class="drawer-head"><h2>Pieza ${n}</h2><button class="drawer-close" onclick="closeTooth()">✕</button></div>
+    <div class="drawer-body" id="drawerBody"></div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend', overlayHtml);
+  renderDrawerBody();
+}
+function closeTooth(){
+  document.getElementById('toothOverlay')?.remove();
+  document.getElementById('toothDrawer')?.remove();
+}
+function renderDrawerBody(){
+  const p = getPatient(STATE.drawerPid);
+  const n = STATE.drawerTooth;
+  const tData = p.odontograma[n];
+  const historial = tData.tratamientos.slice().sort((a,b)=>b.fecha.localeCompare(a.fecha));
+
+  const preview = toothSquareSVG(n, tData);
+
+  document.getElementById('drawerBody').innerHTML = `
+    <div class="section-title">Estado de la pieza</div>
+    <div style="display:flex; align-items:center; gap:16px; margin-bottom:6px;">
+      <div style="width:52px; height:52px;">${preview}</div>
+      <div style="flex:1;">
+        <div class="check-row" style="border:none; padding:0;">
+          <label>¿Pieza ausente?</label>
+          <div class="seg">
+            <button id="aus_no" class="${!STATE.drawerAusente?'active':''}" onclick="setDrawerAusente(false)">No</button>
+            <button id="aus_si" class="${STATE.drawerAusente?'active':''}" onclick="setDrawerAusente(true)">Sí</button>
+          </div>
+        </div>
+        <div class="hint">El resto de las marcas (caries, obturaciones, TC, corona, etc.) se calculan automáticamente según los tratamientos registrados abajo.</div>
+      </div>
+    </div>
+
+    <div class="section-title">Historial de la pieza</div>
+    ${historial.length? `<div class="timeline">${historial.map(tr=>{
+      const g = garantiaEstado(tr.garantia);
+      return `<div class="tl-item"><div class="tl-date">${fmtDate(tr.fecha)}</div>
+        <div class="tl-card">
+          <div class="tl-title">${esc(tr.procedimiento)}</div>
+          ${tr.diagnostico? `<div class="tl-meta">Diagnóstico: ${esc(tr.diagnostico)}</div>`:''}
+          ${tr.superficies?.length? `<div class="tl-meta">Superficie: ${tr.superficies.map(s=>SURFACES.find(x=>x.id===s)?.label||s).join(', ')}</div>`:''}
+          ${tr.material? `<div class="tl-meta">Material: ${esc(tr.material)}</div>`:''}
+          <div class="tl-meta">Estado: ${esc(tr.estado)}${tr.profesional? ' · '+esc(tr.profesional):''}</div>
+          ${tr.observaciones? `<div class="tl-meta">Obs: ${esc(tr.observaciones)}</div>`:''}
+          ${g? `<span class="chip ${g.chip}" style="margin-top:6px;">${g.label}${tr.garantia.vencimiento? ' ('+fmtDate(tr.garantia.vencimiento)+')':''}</span>`:''}
+        </div></div>`;
+    }).join('')}</div>` : `<div class="empty-note">Sin tratamientos registrados para esta pieza todavía.</div>`}
+
+    <div class="section-title">Agregar tratamiento</div>
+    <div class="form-grid">
+      <div class="field"><label>Procedimiento</label>
+        <select id="tr_proc">${PROCEDIMIENTOS.map(pr=>`<option value="${pr}">${pr}</option>`).join('')}</select>
+      </div>
+      <div class="field"><label>Fecha</label><input type="date" id="tr_fecha" value="${todayISO()}"></div>
+      <div class="field"><label>Profesional</label><input id="tr_prof" value="María Eugenia Blanco"></div>
+      <div class="field"><label>Estado</label>
+        <select id="tr_estado">${['Pendiente','En proceso','Finalizado','Cancelado'].map(s=>`<option value="${s}">${s}</option>`).join('')}</select>
+      </div>
+      <div class="field full"><label>Diagnóstico</label><input id="tr_diag" placeholder="Ej: Caries oclusal"></div>
+      <div class="field full"><label>Descripción</label><textarea id="tr_desc" placeholder="Detalle del procedimiento realizado"></textarea></div>
+      <div class="field"><label>Material</label><input id="tr_mat" placeholder="Ej: Resina, Amalgama..."></div>
+      <div class="field"><label>Costo (opcional)</label><input id="tr_costo" type="number" placeholder="$"></div>
+      <div class="field full"><label>Observaciones</label><textarea id="tr_obs"></textarea></div>
+    </div>
+
+    <div class="section-title">Superficies afectadas</div>
+    <div class="surface-diagram">
+      <svg viewBox="0 0 100 100">
+        <rect class="seg-face" data-s="vestibular" x="30" y="2" width="40" height="26" rx="4" onclick="toggleSurface('vestibular')"></rect>
+        <rect class="seg-face" data-s="mesial" x="2" y="30" width="26" height="40" rx="4" onclick="toggleSurface('mesial')"></rect>
+        <rect class="seg-face" data-s="oclusal" x="30" y="30" width="40" height="40" rx="4" onclick="toggleSurface('oclusal')"></rect>
+        <rect class="seg-face" data-s="distal" x="72" y="30" width="26" height="40" rx="4" onclick="toggleSurface('distal')"></rect>
+        <rect class="seg-face" data-s="lingual" x="30" y="72" width="40" height="26" rx="4" onclick="toggleSurface('lingual')"></rect>
+        <text x="50" y="17" text-anchor="middle">Vest.</text>
+        <text x="15" y="52" text-anchor="middle">Mes.</text>
+        <text x="50" y="52" text-anchor="middle">Ocl.</text>
+        <text x="85" y="52" text-anchor="middle">Dist.</text>
+        <text x="50" y="88" text-anchor="middle">Ling.</text>
+      </svg>
+    </div>
+    <div class="hint" style="text-align:center; margin-bottom:14px;">Tocá una o más caras del diente para marcarlas.</div>
+
+    <div class="section-title">Garantía</div>
+    <div class="seg" style="margin-bottom:10px;">
+      <button id="gar_no" class="active" onclick="setGarantiaToggle(false)">No</button>
+      <button id="gar_si" onclick="setGarantiaToggle(true)">Sí</button>
+    </div>
+    <div id="garantiaFields" style="display:none;" class="form-grid">
+      <div class="field"><label>Fecha de inicio</label><input type="date" id="tr_gar_inicio" value="${todayISO()}"></div>
+      <div class="field"><label>Duración (meses)</label><input type="number" id="tr_gar_meses" value="12" onchange="recalcVencimiento()"></div>
+      <div class="field full"><label>Fecha de vencimiento</label><input type="date" id="tr_gar_venc"></div>
+    </div>
+
+    <button class="btn btn-accent" style="width:100%; margin-top:18px;" onclick="saveTratamiento()">Guardar tratamiento</button>
+  `;
+}
+async function setDrawerAusente(val){
+  STATE.drawerAusente = val;
+  const p = getPatient(STATE.drawerPid);
+  p.odontograma[STATE.drawerTooth].ausente = val;
+  renderDrawerBody();
+  renderView();
+  cacheDBLocally();
+  try{
+    await callApi({accion:'setPiezaAusente', pacienteId: STATE.drawerPid, pieza: STATE.drawerTooth, valor: String(val)});
+  } catch(err){
+    enqueue('setPiezaAusente', {pacienteId: STATE.drawerPid, pieza: STATE.drawerTooth, valor: val}, null);
+    toast('Sin conexión: se sincronizará solo.');
+  }
+}
+function toggleSurface(s){
+  const i = STATE.drawerSurfaces.indexOf(s);
+  if(i>-1) STATE.drawerSurfaces.splice(i,1); else STATE.drawerSurfaces.push(s);
+  document.querySelectorAll('.seg-face').forEach(el=>{
+    el.classList.toggle('on', STATE.drawerSurfaces.includes(el.dataset.s));
+  });
+}
+function setGarantiaToggle(val){
+  document.getElementById('gar_no').classList.toggle('active', !val);
+  document.getElementById('gar_si').classList.toggle('active', val);
+  document.getElementById('garantiaFields').style.display = val? 'grid':'none';
+  STATE.drawerGarantia = val;
+  if(val) recalcVencimiento();
+}
+function recalcVencimiento(){
+  const inicio = document.getElementById('tr_gar_inicio').value;
+  const meses = Number(document.getElementById('tr_gar_meses').value||0);
+  if(inicio){
+    const d = new Date(inicio); d.setMonth(d.getMonth()+meses);
+    document.getElementById('tr_gar_venc').value = d.toISOString().slice(0,10);
+  }
+}
+async function saveTratamiento(){
+  const p = getPatient(STATE.drawerPid);
+  const n = STATE.drawerTooth;
+  const garantia = STATE.drawerGarantia ? {
+    tiene:true,
+    inicio: document.getElementById('tr_gar_inicio').value,
+    vencimiento: document.getElementById('tr_gar_venc').value
+  } : {tiene:false};
+  const tr = {
+    fecha: document.getElementById('tr_fecha').value || todayISO(),
+    procedimiento: document.getElementById('tr_proc').value,
+    diagnostico: document.getElementById('tr_diag').value.trim(),
+    descripcion: document.getElementById('tr_desc').value.trim(),
+    superficies: STATE.drawerSurfaces.slice(),
+    material: document.getElementById('tr_mat').value.trim(),
+    profesional: document.getElementById('tr_prof').value.trim(),
+    estado: document.getElementById('tr_estado').value,
+    observaciones: document.getElementById('tr_obs').value.trim(),
+    costo: document.getElementById('tr_costo').value.trim(),
+    garantia
+  };
+  const flat = flattenTratamiento(STATE.drawerPid, n, tr);
+  let id, queued = false;
+  try{
+    const created = await callApi({accion:'agregarTratamiento', data: JSON.stringify(flat)});
+    id = created.id;
+  } catch(err){
+    id = nowLocalId('tmp_tr');
+    enqueue('agregarTratamiento', flat, id);
+    queued = true;
+  }
+  tr.id = id;
+  p.odontograma[n].tratamientos.push(tr);
+  cacheDBLocally();
+  STATE.drawerSurfaces = []; STATE.drawerGarantia=false;
+  toast(queued ? 'Sin conexión: tratamiento guardado en este dispositivo.' : 'Tratamiento registrado.');
+  renderDrawerBody();
+  renderView();
+}
+
+/* =========================================================
+   NUEVA CONSULTA
+   ========================================================= */
+function openNewConsultaModal(pid){
+  STATE.consultaPiezas = [];
+  const html = `
+    <div class="modal-overlay active" id="modalConsulta">
+      <div class="modal">
+        <div class="modal-head"><h2>Nueva consulta / evolución</h2><button class="modal-close" onclick="closeModal('modalConsulta')">✕</button></div>
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="field"><label>Fecha</label><input type="date" id="con_fecha" value="${todayISO()}"></div>
+            <div class="field"><label>Próximo control</label><input type="date" id="con_proximo"></div>
+            <div class="field full"><label>Motivo de consulta</label><input id="con_motivo" placeholder="Ej: Control, dolor, revisión..."></div>
+            <div class="field full"><label>Diagnóstico</label><input id="con_diag"></div>
+            <div class="field full"><label>Piezas involucradas</label>
+              <div class="tag-input-wrap" id="piezaTagWrap">
+                <input id="piezaTagInput" placeholder="Escribí un Nº FDI y Enter (ej: 36)" onkeydown="if(event.key==='Enter'){event.preventDefault();addPiezaTag(this.value);this.value='';}">
+              </div>
+            </div>
+            <div class="field full"><label>Observaciones</label><textarea id="con_obs"></textarea></div>
+            <div class="field full"><label>Indicaciones</label><textarea id="con_ind"></textarea></div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:16px;" onclick="saveConsulta('${pid}')">Guardar consulta</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+function addPiezaTag(val){
+  val = val.trim();
+  if(!val || isNaN(val)) return;
+  if(!STATE.consultaPiezas.includes(Number(val))) STATE.consultaPiezas.push(Number(val));
+  renderPiezaTags();
+}
+function removePiezaTag(n){
+  STATE.consultaPiezas = STATE.consultaPiezas.filter(x=>x!==n);
+  renderPiezaTags();
+}
+function renderPiezaTags(){
+  const wrap = document.getElementById('piezaTagWrap');
+  const input = document.getElementById('piezaTagInput');
+  wrap.querySelectorAll('.tag-pill').forEach(el=>el.remove());
+  STATE.consultaPiezas.forEach(n=>{
+    const pill = document.createElement('span');
+    pill.className='tag-pill';
+    pill.innerHTML = `${n} <button onclick="removePiezaTag(${n})">✕</button>`;
+    wrap.insertBefore(pill, input);
+  });
+}
+async function saveConsulta(pid){
+  const p = getPatient(pid);
+  const motivo = document.getElementById('con_motivo').value.trim();
+  if(!motivo){ toast('Indicá el motivo de consulta.'); return; }
+  const consulta = {
+    fecha: document.getElementById('con_fecha').value || todayISO(),
+    motivo, diagnostico: document.getElementById('con_diag').value.trim(),
+    piezas: STATE.consultaPiezas.slice(),
+    observaciones: document.getElementById('con_obs').value.trim(),
+    indicaciones: document.getElementById('con_ind').value.trim(),
+    proximoControl: document.getElementById('con_proximo').value
+  };
+  const flat = Object.assign({pacienteId:pid}, consulta, {piezas: consulta.piezas.join(',')});
+  let id, queued = false;
+  try{
+    const created = await callApi({accion:'agregarConsulta', data: JSON.stringify(flat)});
+    id = created.id;
+  } catch(err){
+    id = nowLocalId('tmp_con');
+    enqueue('agregarConsulta', flat, id);
+    queued = true;
+  }
+  consulta.id = id;
+  p.consultas.push(consulta);
+  cacheDBLocally();
+  closeModal('modalConsulta');
+  toast(queued ? 'Sin conexión: consulta guardada en este dispositivo.' : 'Consulta registrada.');
+  STATE.currentTab='historial';
+  renderView();
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+/* Reintenta sincronizar apenas vuelve la conexión, y cada 1 min como respaldo */
+window.addEventListener('online', ()=> flushQueue());
+setInterval(()=>{ if(PENDING_QUEUE.length) flushQueue(true); }, 60000);
+
+startApp();
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
